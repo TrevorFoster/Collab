@@ -1,0 +1,14 @@
+<md-content layout-fill layout layout-align="center center" style="background-color:rgb(220,220,220)">
+    <md-whiteframe class="md-whiteframe-z3" layout="column" layout-align="center center" layout-padding style="background-color:rgba(255,255,255,.7)">
+        <md-input-container ng-class="{'md-primary': valid, 'md-warn': !valid}" layout-align="center start" style="padding:64px 64px 0px 64px">
+            <label>Username</label>
+            <input ng-model="user.username">
+        </md-input-container>
+        <md-input-container ng-class="{'md-primary': valid, 'md-warn': !valid}" layout-align="center start" style="padding:0px 64px 64px 64px">
+            <label>Password</label>
+            <input ng-model="user.password">
+        </md-input-container>
+        <span><md-button class="md-raised" ng-class="{'md-primary': valid, 'md-warn': !valid}" ng-click="verifyCred(user.username)">Login!</md-button>
+        <md-button class="md-raised md-primary" ng-click="showRegister($event)">Register</md-button></span>
+    </md-whiteframe>
+</md-content>

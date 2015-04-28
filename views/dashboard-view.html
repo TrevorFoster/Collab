@@ -1,0 +1,30 @@
+<style>
+.md-button.selected {
+    background-color: rgba(0, 0, 0, 0.2);
+}
+</style>
+<div layout="row">
+    <md-sidenav layout-fill class="md-sidenav-left md-whiteframe-z2 md-locked-open" md-component-id="left" md-is-locked-open="true">
+        <md-toolbar>
+            <div class="md-toolbar-tools" style="padding:40px">
+                <img ng-src="http://lorempixel.com/50/50/people?0" style="border-radius:50%;width:60px;height:60px;" />
+                <md-list-item class="md-2-line">
+                    <div class="md-list-item-text">
+                        <h2 style="font-size:24px">{{user.username}}</h2>
+                        <h3>{{user.name}}</h3>
+                    </div>
+                </md-list-item>
+            </div>
+            <md-divider></md-divider>
+        </md-toolbar>
+        <div layout="column" ng-repeat="option in options">
+            <md-button class="md-button" ng-class="{selected: isSelected(option.index)}" ng-click="changeSelected(option.index)">{{option.name}}</md-button>
+            <md-divider></md-divider>
+        </div>
+    </md-sidenav>
+    <md-content layout-fill style="background-color:rgb(220,220,220)">
+        <md-toolbar style="height:81px;">
+        </md-toolbar>
+        <div ng-include="'views/profile-view.html'" ng-if="selectedIndex == 0"></div>
+    </md-content>
+</div>

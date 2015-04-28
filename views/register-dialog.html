@@ -1,0 +1,19 @@
+<md-dialog aria-label="Register">
+    <md-dialog-content class="sticky-container">
+        <div layout="column" layout>
+            <md-input-container class=" md-primary " layout-align="center" style="padding:64px 64px 0px 64px ">
+                <label>Name</label>
+                <input ng-model="register.name">
+            </md-input-container>
+            <md-input-container class="md-primary " layout-align="center" style="padding:0px 64px 64px 64px ">
+                <label>Username</label>
+                <input ng-model="register.username">
+            </md-input-container>
+            <div class="md-actions" layout="row" layout-align="center center">
+                <span flex></span>
+                <md-button class="md-raised md-primary" ng-click="validateUser(register.username)">Register!</md-button>
+                <md-button class="md-raised md-primary" ng-click="cancel()">Cancel</md-button>
+            </div>
+        </div>
+    </md-dialog-content>
+</md-dialog>
