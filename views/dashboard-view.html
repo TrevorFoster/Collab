@@ -23,9 +23,9 @@
         </div>
     </md-sidenav>
     <md-content layout-fill style="background-color:rgb(220,220,220)">
-        <md-toolbar style="height:81px;">
-            <h2>{{location}}</h2>
+        <md-toolbar style="height:81px;" layout layout-align="center">
+            <h2 layout-padding>{{location}}</h2>
         </md-toolbar>
-        <div ng-include="'views/profile-view.html'" ng-if="selectedIndex == 0"></div>
+        <div ng-repeat="option in options" ng-include="'/Collab/views/' + option.src" ng-if="isSelected(option.index)"></div>
     </md-content>
 </div>

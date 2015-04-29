@@ -5,7 +5,7 @@
                 <img ng-src="http://lorempixel.com/50/50/people?0" style="border-radius:50%;width:100px;height:100px" />
                 <div layout="column" style="padding-left:5px">
                     <h2 style="font-size:24px">
-                	{{user.username}}<br>
+                    {{user.username}}<br>
                     <div style="font-size:18px;font-weight:normal" class="md-secondary">{{user.name}}</div>
                 </h2>
                 </div>
@@ -31,10 +31,12 @@
                 <md-toolbar class="md-primary md-hue-2">
                     <h3 layout layout-align="center">Projects</h3>
                 </md-toolbar>
-                <md-whiteframe layout-padding layout-fill class="md-whiteframe-z1" layout="column" layout-align="start center">
-                    <md-card ng-repeat="project in projects" style="width:100%">
-                        <md-card-content>
-                            <h2 class="md-title">{{project.name}}</h2>
+                <md-whiteframe layout-padding layout-fill class="md-whiteframe-z2" layout="column" layout-align="start center">
+                    <md-card ng-repeat="project in projects | orderBy: '-reputation'" style="width:100%" layout="row" layout-align="center">
+                        <project-vote></project-vote>
+                        <md-card-content layout="column">
+                            <h3 style="margin-bottom:0px">{{project.name}}</h3>
+                            <p class="md-secondary">{{project.description}}</p>
                         </md-card-content>
                     </md-card>
                 </md-whiteframe>

@@ -3,7 +3,7 @@ var bodyParser = require("body-parser");
 var mongoose = require("mongoose");
 var users = require("./routes/users");
 var projects = require("./routes/projects");
-var features = require("./routes/features");
+var suggestions = require("./routes/suggestions");
 var app = express();
 
 var connection = "mongodb://localhost:27017";
@@ -21,6 +21,6 @@ app.use(function(req, res, next) {
 });
 app.use("/api", users);
 app.use("/api", projects);
-app.use("/api", features);
+app.use("/api", suggestions);
 
 module.exports = app;

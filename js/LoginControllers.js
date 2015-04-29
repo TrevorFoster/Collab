@@ -2,8 +2,9 @@ var app = angular.module("LoginControllers", ["ngMaterial"]);
 
 app.controller("LoginCtrl", ["$scope", "$http", "$location", "$mdDialog", "$resource", function($scope, $http, $location, $mdDialog, $resource) {
     $scope.valid = true;
-    var User = $resource("http://localhost\:8000/api/users/:id", {
-        id: "@_id"
+
+    var User = $resource("http://localhost\:8000/api/users/:username", {
+        username: "@username"
     });
     $scope.verifyCred = function(username) {
         if (!username) {
@@ -13,13 +14,13 @@ app.controller("LoginCtrl", ["$scope", "$http", "$location", "$mdDialog", "$reso
 
         var request = $http({
             method: "get",
-            url: "http://localhost:8000/api/register/" + username
-        }).success(function(data) {
-            if (!data) {
+            url: "http://localhost:8000/api/users/" + username
+        }).success(function(user) {
+            if (user.error) {
                 $scope.valid = false;
                 return;
             }
-            $location.path("dashboard/" + data._id);
+            $location.path("dashboard/" + user.username);
         });
     }
 
@@ -30,7 +31,7 @@ app.controller("LoginCtrl", ["$scope", "$http", "$location", "$mdDialog", "$reso
                 $scope.validateUser = function(username) {
                     var request = $http({
                         method: "post",
-                        url: "http://localhost:8000/api/register/" + username,
+                        url: "http://localhost:8000/api/users/register/" + username,
                         data: {
                             name: $scope.register.name,
                             username: username
@@ -38,10 +39,10 @@ app.controller("LoginCtrl", ["$scope", "$http", "$location", "$mdDialog", "$reso
                         headers: {
                             "Content-Type": "application/json"
                         }
-                    }).success(function(data) {
-                        if (data.error) return;
+                    }).success(function(user) {
+                        if (user.error) return;
                         $mdDialog.hide();
-                        $location.path("dashboard/" + data._id);
+                        $location.path("dashboard/" + user.username);
                     });
                 }
 

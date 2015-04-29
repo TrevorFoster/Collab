@@ -2,7 +2,7 @@ var User = require("../models/user");
 var express = require("express");
 var router = express.Router();
 
-router.route('/users').post(function(req, res) {
+router.route("/users").post(function(req, res) {
     var user = new User(req.body);
 
     user.save(function(err) {
@@ -22,7 +22,7 @@ router.route('/users').post(function(req, res) {
     });
 });
 
-router.route("/register/:username").post(function(req, res) {
+router.route("/users/register/:username").post(function(req, res) {
     User.findOne({
         username: req.params.username
     }, function(err, user) {
@@ -42,17 +42,11 @@ router.route("/register/:username").post(function(req, res) {
             })
         }
     })
-}).get(function(req, res) {
-    User.findOne({
-        username: req.params.username
-    }, function(err, user) {
-        res.json(user);
-    });
 });
 
-router.route("/users/:id").get(function(req, res) {
+router.route("/users/:username").get(function(req, res) {
     User.findOne({
-        _id: req.params.id
+        username: req.params.username
     }, function(err, user) {
         if (err) {
             err.error = true;
@@ -63,7 +57,7 @@ router.route("/users/:id").get(function(req, res) {
     });
 }).post(function(req, res) {
     User.findOne({
-        _id: req.params.id
+        username: req.params.username
     }, function(err, user) {
         if (err) {
             return res.send(err);
@@ -80,12 +74,12 @@ router.route("/users/:id").get(function(req, res) {
             }
 
             res.json({
-                message: 'User updated!'
+                message: "User updated!"
             });
         });
     });
 }).delete(function(req, res) {
-    if (req.params.id == -1) {
+    if (req.params.username == -1) {
         User.collection.remove(function() {
             res.json({
                 message: "CLEARED"
@@ -93,14 +87,14 @@ router.route("/users/:id").get(function(req, res) {
         });
     } else {
         User.remove({
-            _id: req.params.id
+            username: req.params.username
         }, function(err, user) {
             if (err) {
                 return res.send(err);
             }
 
             res.json({
-                message: 'Successfully deleted'
+                message: "Successfully deleted"
             });
         });
     }

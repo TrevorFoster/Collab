@@ -1,0 +1,6 @@
+<div ng-init="initialize(project)" layout="column" layout-align="center" style="padding: 3px">
+    <h2 style="margin-bottom:0px;border-radius:20px;margin-left:auto;margin-right:auto;padding-left:6px">{{project.reputation}}</h2>
+    <md-button class="md-button-toggle md-fab md-mini md-hue-2" ng-class="{'md-primary': !rated, 'md-warn': rated}" aria-label="Vote">
+        <md-icon md-svg-src="img/light-bulb.svg" ng-click="toggleRating(project)"></md-icon>
+    </md-button>
+</div>

@@ -1,78 +1,76 @@
-var Feature = require("../models/feature");
+var Suggestion = require("../models/suggestion");
 var express = require("express");
 var router = express.Router();
 
-router.route('/features').post(function(req, res) {
-    var feature = new Feature(req.body);
+router.route("/suggestions").post(function(req, res) {
+    var suggestion = new Suggestion(req.body);
 
-    feature.save(function(err) {
+    suggestion.save(function(err) {
         if (err) {
             return res.send(err);
         }
 
-        res.json(feature);
+        res.json(suggestion);
     });
 }).get(function(req, res) {
-    Feature.find(function(err, features) {
+    Suggestion.find(function(err, suggestions) {
         if (err) {
             return res.send(err);
         }
 
-        res.json(features);
+        res.json(suggestions);
     });
 });
 
-router.route("/features/:id").get(function(req, res) {
-    Feature.findOne({
+router.route("/suggestions/:id").get(function(req, res) {
+    Suggestion.findOne({
         _id: req.params.id
-    }, function(err, feature) {
+    }, function(err, suggestion) {
         if (err) {
             err.error = true;
             return res.send(err);
         }
 
-        res.json(feature);
+        res.json(suggestion);
     });
 }).post(function(req, res) {
-    Feature.findOne({
+    Suggestion.findOne({
         _id: req.params.id
-    }, function(err, feature) {
+    }, function(err, suggestion) {
         if (err) {
             return res.send(err);
         }
 
         for (prop in req.body) {
-            feature[prop] = req.body[prop];
+            suggestion[prop] = req.body[prop];
         }
 
-        // save the feature
-        feature.save(function(err) {
+        // save the suggestion
+        suggestion.save(function(err) {
             if (err) {
                 return res.send(err);
             }
 
-            res.json({
-                message: 'Proj updated!'
-            });
+            res.json(suggestion);
         });
     });
 }).delete(function(req, res) {
     if (req.params.id == -1) {
-        Feature.collection.remove(function() {
+        Suggestion.collection.remove(function() {
             res.json({
                 message: "CLEARED"
             });
         });
     } else {
-        Feature.remove({
+        Suggestion.remove({
             _id: req.params.id
-        }, function(err, feature) {
+        }, function(err, suggestion) {
             if (err) {
                 return res.send(err);
             }
 
             res.json({
-                message: 'Successfully deleted'
+                message: "Successfully deleted"
             });
         });
     }
