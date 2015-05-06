@@ -5,25 +5,25 @@
                 <img ng-src="http://lorempixel.com/50/50/people?0" style="border-radius:50%;width:100px;height:100px" />
                 <div layout="column" style="padding-left:5px">
                     <h2 style="font-size:24px">
-                    {{profile.username}}<br>
-                    <div style="font-size:18px;font-weight:normal" class="md-secondary">{{profile.name}}</div>
+                    {{user.username}}<br>
+                    <div style="font-size:18px;font-weight:normal" class="md-secondary">{{user.name}}</div>
                 </h2>
                 </div>
             </div>
             <table class="profile-stats">
                 <tr>
                     <td>
-                        <h2 style="text-decoration:underline;">{{profile.projects.length}}</h2></td>
+                        <h2 style="text-decoration:underline;">{{user.projects.length}}</h2></td>
                     <td>
-                        <h2 style="text-decoration:underline;">{{profile.suggestions.length}}</h2></td>
+                        <h2 style="text-decoration:underline;">{{user.suggestions.length}}</h2></td>
                     <td>
-                        <h2 style="text-decoration:underline;">{{profile.reputation}}</h2></td>
+                        <h2 style="text-decoration:underline;">{{user.reputation}}</h2></td>
                 </tr>
                 <tr>
                     <td>
-                        <h4>{{profile.projects.length == 1 ? "Project" : "Projects"}}</h4></td>
+                        <h4>{{user.projects.length == 1 ? "Project" : "Projects"}}</h4></td>
                     <td>
-                        <h4>{{profile.suggestions.length == 1 ? "Suggestion" : "Suggestions"}}</h4></td>
+                        <h4>{{user.suggestions.length == 1 ? "Suggestion" : "Suggestions"}}</h4></td>
                     <td>
                         <h4>Reputation</h4></td>
                 </tr>
@@ -36,7 +36,7 @@
                     <h3 layout layout-align="center">Projects</h3>
                 </md-toolbar>
                 <md-whiteframe layout-padding layout-fill class="md-whiteframe-z1" layout="column">
-                    <md-card ng-repeat="project in profileProjects | orderBy: '-reputation'" style="width:100%" layout="row">
+                    <md-card ng-repeat="project in projects | orderBy: '-reputation'" style="width:100%" layout="row">
                         <project-vote layout layout-align="center"></project-vote>
                         <md-card-content layout="column">
                             <a class="project-list-title" ng-click="viewProject(project)">
@@ -49,7 +49,7 @@
             </div>
             <div flex layout-padding layout-margin>
                 <md-toolbar class="md-primary md-hue-2">
-                    <h3 layout layout-align="center">Suggestions</h3>
+                    <h3 layout layout-align="center">Your Suggestions</h3>
                 </md-toolbar>
                 <md-whiteframe layout-padding layout-fill class="md-whiteframe-z1" layout="column">
                     <md-content>

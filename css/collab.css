@@ -1,0 +1,34 @@
+.vote-poll {
+    width: 50px;
+    min-width: 50px;
+}
+
+.md-button.selected {
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+table.profile-stats {
+    border: 1px dashed grey;
+}
+
+a.project-list-title {
+    outline: none;
+    width: 0;
+}
+
+a.project-list-title:link {
+    text-decoration: none;
+}
+
+a.project-list-title:visited {
+    text-decoration: none;
+}
+
+a.project-list-title:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+a.project-list-title:active {
+    text-decoration: underline;
+}

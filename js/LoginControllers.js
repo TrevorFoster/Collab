@@ -1,11 +1,8 @@
-var app = angular.module("LoginControllers", ["ngMaterial"]);
+var app = angular.module("LoginControllers", ["ui.router", "ngMaterial", "apiRef"]);
 
-app.controller("LoginCtrl", ["$scope", "$http", "$location", "$mdDialog", "$resource", function($scope, $http, $location, $mdDialog, $resource) {
+app.controller("LoginCtrl", ["$scope", "$http", "$state", "$mdDialog", "User", function($scope, $http, $state, $mdDialog, User) {
     $scope.valid = true;
 
-    var User = $resource("http://localhost\:8000/api/users/:username", {
-        username: "@username"
-    });
     $scope.verifyCred = function(username) {
         if (!username) {
             $scope.valid = false;
@@ -20,12 +17,12 @@ app.controller("LoginCtrl", ["$scope", "$http", "$location", "$mdDialog", "$reso
                 $scope.valid = false;
                 return;
             }
-            $location.path("dashboard/" + user.username);
+            localStorage.setItem("username", user.username);
+            $state.go("dashboard.myprofile");
         });
     }
 
     $scope.showRegister = function(ev) {
-        console.log("Hello");
         $mdDialog.show({
             controller: function($scope, $mdDialog) {
                 $scope.validateUser = function(username) {
@@ -42,7 +39,8 @@ app.controller("LoginCtrl", ["$scope", "$http", "$location", "$mdDialog", "$reso
                     }).success(function(user) {
                         if (user.error) return;
                         $mdDialog.hide();
-                        $location.path("dashboard/" + user.username);
+                        localStorage.setItem("username", user.username);
+                        $state.go("dashboard.myprofile");
                     });
                 }
 

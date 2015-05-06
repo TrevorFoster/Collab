@@ -1,19 +1,15 @@
-var projectManageApp = angular.module("ProjectManageApp", ["ngRoute", "ngResource", "LoginControllers", "MainControllers"]);
+var app = angular.module("ProjectManageApp", ["ui.router", "LoginControllers", "DashboardControllers"]);
 
-projectManageApp.config(["$routeProvider",
-
-    function($routeProvider, $location) {
-        $routeProvider.
-        when("/login", {
-            templateUrl: "views/login-view.html",
-            controller: "LoginCtrl"
-        }).
-        when("/dashboard/:username", {
-            templateUrl: "views/dashboard-view.html",
-            controller: "MainCtrl"
-        }).
-        otherwise({
-            redirectTo: "/login"
-        });
-    }
-]);
+app.config(function($stateProvider) {
+    $stateProvider.
+    state("login", {
+        url: "/login",
+        templateUrl: "views/login-view.html",
+        controller: "LoginCtrl"
+    }).
+    state("dashboard", {
+        url: "/dashboard",
+        templateUrl: "views/dashboard-view.html",
+        controller: "DashboardCtrl"
+    });
+});

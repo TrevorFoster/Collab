@@ -1,8 +1,3 @@
-<style>
-.md-button.selected {
-    background-color: rgba(0, 0, 0, 0.2);
-}
-</style>
 <div layout="row">
     <md-sidenav layout-fill class="md-sidenav-left md-whiteframe-z2 md-locked-open" md-component-id="left" md-is-locked-open="true">
         <md-toolbar>
@@ -17,15 +12,17 @@
             </div>
             <md-divider></md-divider>
         </md-toolbar>
-        <div layout="column" ng-repeat="option in options">
-            <md-button class="md-button" ng-class="{selected: isSelected(option.index)}" ng-click="changeSelected(option.index)">{{option.name}}</md-button>
-            <md-divider></md-divider>
+        <div layout="column" layout-fill>
+            <md-button ng-repeat="option in options" class="md-button" ng-class="{selected: isSelected(option.index)}" ng-click="navClicked(option.index)">
+                {{option.name}}
+                <md-divider></md-divider>
+            </md-button>
         </div>
     </md-sidenav>
     <md-content layout-fill style="background-color:rgb(220,220,220)">
         <md-toolbar style="height:81px;" layout layout-align="center">
             <h2 layout-padding>{{location}}</h2>
         </md-toolbar>
-        <div ng-repeat="option in options" ng-include="'/Collab/views/' + option.src" ng-if="isSelected(option.index)"></div>
+        <div ui-view autoscroll="false"></div>
     </md-content>
 </div>
