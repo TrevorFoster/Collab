@@ -1,11 +1,5 @@
-var app = require("../app"); //Require our app
-var keypress = require("keypress");
+var app = require("../app");
 
-keypress(process.stdin);
-
-app.set("port", process.env.PORT || 8000);
-
-
-var server = app.listen(app.get("port"), function() {
+var server = app.listen(8000, function() {
     console.log("Express server listening on port " + server.address().port);
 });

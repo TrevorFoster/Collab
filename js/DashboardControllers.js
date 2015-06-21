@@ -1,23 +1,23 @@
 var app = angular.module("DashboardControllers", ["ui.router", "ngMaterial", "apiRef", "ProfileControllers", "ProjectControllers"]);
 
-app.config(function($stateProvider) {
-    var options = [{
-        name: "My Profile",
-        template: "myprofile-view.html",
-        view: "myprofile",
-        index: 0
-    }, {
-        name: "Browse Projects",
-        template: "browse-view.html",
-        view: "browse",
-        index: 1
-    }, {
-        name: "Manage Projects",
-        template: "myprofile-view.html",
-        view: "manage",
-        index: 2
-    }];
+app.constant("options", [{
+    name: "My Profile",
+    template: "myprofile-view.html",
+    view: "myprofile",
+    index: 0
+}, {
+    name: "Browse Projects",
+    template: "browse-view.html",
+    view: "browse",
+    index: 1
+}, {
+    name: "Manage Projects",
+    template: "myprofile-view.html",
+    view: "manage",
+    index: 2
+}]);
 
+app.config(["$stateProvider", "options", function($stateProvider, options) {
     options.forEach(function(option) {
         $stateProvider.state("dashboard." + option.view, {
             url: "/" + option.view,
@@ -37,31 +37,12 @@ app.config(function($stateProvider) {
         controller: "ProfileCtrl",
         templateUrl: "views/profile-view.html"
     });
-});
+}]);
 
-app.controller("DashboardCtrl", ["$scope", "$rootScope", "$state", "User", "Project", function($scope, $rootScope, $state, User, Project) {
-    if (!($scope.username = localStorage.getItem("username"))) {
-        $state.go("login");
-        return;
-    }
+app.controller("DashboardCtrl", ["$scope", "$rootScope", "$state", "User", "Project", "options", function($scope, $rootScope, $state, User, Project, options) {
 
-    $scope.options = [{
-        name: "My Profile",
-        template: "profile-view.html",
-        view: "myprofile",
-        index: 0
-    }, {
-        name: "Browse Projects",
-        template: "browse-view.html",
-        view: "browse",
-        index: 1
-    }, {
-        name: "Manage Projects",
-        template: "profile-view.html",
-        view: "manage",
-        index: 2
-    }];
-
+    $scope.username = localStorage.getItem("username");
+    $scope.options = options;
     $scope.user = null;
     $scope.projects = [];
     $scope.viewingProject = null;
@@ -106,23 +87,23 @@ app.controller("DashboardCtrl", ["$scope", "$rootScope", "$state", "User", "Proj
         $scope.selectedIndex = index;
         if (index == -1) return;
 
-        var option = $scope.options[index];
+        var option = options[index];
         $scope.setLocation(option.name);
 
         return option.view;
     }
 
-    $rootScope.$on('$stateChangeSuccess',
+    $rootScope.$on("$stateChangeSuccess",
         function(event, toState, toParams, fromState, fromParams) {
+            console.log(toState);
             var match = false;
-            $scope.options.forEach(function(option, i) {
+            options.forEach(function(option, i) {
                 if ("dashboard." + option.view === toState.name) {
                     $scope.changeSelected(i);
                     match = true;
                 }
             });
-            if (!match) {
+            if (!match)
                 $scope.changeSelected(-1);
-            }
         });
 }]);

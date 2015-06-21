@@ -1,6 +1,6 @@
 <div layout="column" layout-align="center" style="padding: 3px; min-width:52px;width:52px">
     <h2 ng-class="{'voted':rated}" style="margin:0px;border-radius:20px;" layout layout-align="center">{{project.reputation}}</h2>
-    <md-button class="md-button md-fab md-mini md-hue-2" ng-class="{'md-primary': !rated, 'md-warn': rated}" aria-label="Vote">
-        <md-icon layout md-svg-src="img/light-bulb.svg" ng-click="toggleRating()"></md-icon>
+    <md-button ng-click="toggleRating()" class="md-button md-fab md-mini md-hue-2" ng-class="{'md-primary': !rated, 'md-warn': rated}" aria-label="Vote">
+        <md-icon layout md-svg-src="img/light-bulb.svg"></md-icon>
     </md-button>
 </div>
