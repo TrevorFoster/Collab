@@ -1,19 +1,22 @@
-var app = angular.module("DashboardControllers", ["ui.router", "ngMaterial", "apiRef", "ProfileControllers", "ProjectControllers"]);
+var app = angular.module("CollabApp");
 
 app.constant("options", [{
     name: "My Profile",
     template: "myprofile-view.html",
     view: "myprofile",
+    controller: "MyProfileCtrl",
     index: 0
 }, {
     name: "Browse Projects",
     template: "browse-view.html",
     view: "browse",
+    controller: "BrowseCtrl",
     index: 1
 }, {
     name: "Manage Projects",
-    template: "myprofile-view.html",
+    template: "manage-view.html",
     view: "manage",
+    controller: "ManageCtrl",
     index: 2
 }]);
 
@@ -22,14 +25,26 @@ app.config(["$stateProvider", "options", function($stateProvider, options) {
         $stateProvider.state("dashboard." + option.view, {
             url: "/" + option.view,
             templateUrl: "views/" + option.template,
-            controller: "MyProfileCtrl"
+            controller: option.controller
         });
     });
 
     $stateProvider.state("dashboard.project", {
-        url: "/project?projectId",
+        url: "/project",
         controller: "ProjectPageCtrl",
-        templateUrl: "views/project-view.html"
+        templateUrl: "views/project-view.html",
+        params: {
+            "project": null
+        }
+    });
+
+    $stateProvider.state("dashboard.projectEdit", {
+        url: "/projectEdit",
+        controller: "ProjectEditCtrl",
+        templateUrl: "views/projectform-view.html",
+        params: {
+            "project": null
+        }
     });
 
     $stateProvider.state("dashboard.profile", {
@@ -40,34 +55,18 @@ app.config(["$stateProvider", "options", function($stateProvider, options) {
 }]);
 
 app.controller("DashboardCtrl", ["$scope", "$rootScope", "$state", "User", "Project", "options", function($scope, $rootScope, $state, User, Project, options) {
+    var updateView = function(currentState) {
+        var match = false;
 
-    $scope.username = localStorage.getItem("username");
-    $scope.options = options;
-    $scope.user = null;
-    $scope.projects = [];
-    $scope.viewingProject = null;
-
-    function loadUser() {
-        function getProjects(projectIDS) {
-            projectIDS.forEach(function(id, i) {
-                Project.get({
-                    id: id
-                }, function(project) {
-                    project.index = i;
-                    $scope.projects.push(project);
-                });
-            });
-        }
-
-        User.get({
-            username: $scope.username
-        }, function(user) {
-            $scope.user = user;
-            getProjects(user.projects);
+        options.forEach(function(option, i) {
+            if ("dashboard." + option.view === currentState) {
+                $scope.changeSelected(i);
+                match = true;
+            }
         });
+        if (!match)
+            $scope.changeSelected(-1);
     }
-
-    loadUser();
 
     $scope.setLocation = function(location) {
         $scope.location = location;
@@ -95,15 +94,21 @@ app.controller("DashboardCtrl", ["$scope", "$rootScope", "$state", "User", "Proj
 
     $rootScope.$on("$stateChangeSuccess",
         function(event, toState, toParams, fromState, fromParams) {
-            console.log(toState);
-            var match = false;
-            options.forEach(function(option, i) {
-                if ("dashboard." + option.view === toState.name) {
-                    $scope.changeSelected(i);
-                    match = true;
-                }
-            });
-            if (!match)
-                $scope.changeSelected(-1);
+            updateView(toState.name);
         });
+
+    $scope.options = options;
+    $scope.user = null;
+    $scope.viewingProject = null;
+
+    updateView($state.current.name);
+
+    User.get({
+        username: sessionStorage.getItem("username")
+    }, function(user) {
+        $scope.user = user;
+        $scope.user.projects.forEach(function(project, i) {
+            $scope.user.projects[i] = new Project(project);
+        });
+    });
 }]);

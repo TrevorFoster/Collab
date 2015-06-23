@@ -1,12 +1,7 @@
-var app = angular.module("ProjectControllers", ["ngMaterial", "ui.router", "apiRef"]);
+var app = angular.module("CollabApp");
 
 app.controller("ProjectPageCtrl", ["$scope", "$resource", "$stateParams", "$state", "Project", function($scope, $resource, $stateParams, $state, Project) {
-    Project.get({
-        id: $stateParams.projectId
-    }, function(project) {
-        $scope.project = project;
-        $scope.setLocation(project.name);
-    });
+    $scope.project = $stateParams.project;
 
     $scope.viewAuthor = function() {
         if ($scope.user.username === $scope.project.author) {
@@ -17,6 +12,24 @@ app.controller("ProjectPageCtrl", ["$scope", "$resource", "$stateParams", "$stat
             });
         }
     }
+}]);
+
+app.controller("ProjectEditCtrl", ["$scope", "$resource", "$stateParams", "$state", "Project", function($scope, $resource, $stateParams, $state, Project) {
+    $scope.project = $stateParams.project;
+    console.log($scope.project);
+    if (!$scope.project) {
+        Project.create({
+            username: $scope.user.username
+        }, function(proj) {
+            $scope.project = new Project(proj);
+            $scope.user.projects.push($scope.project);
+        });
+    }
+
+    $scope.saveProject = function(project) {
+        $scope.project.$save();
+    }
+
 }]);
 
 

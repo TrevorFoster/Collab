@@ -1,0 +1,17 @@
+{
+  "name": "Collab",
+  "version": "0.0.1",
+  "private": true,
+  "engines": {
+    "node": "0.10.x"
+  },
+  "dependencies": {
+    "CollabCRUD": "0.0.x",
+    "angular": "^1.4.1",
+    "angular-animate": "^1.4.1",
+    "angular-aria": "^1.4.1",
+    "angular-material": "^0.10.0",
+    "angular-resource": "^1.4.1",
+    "angular-ui-router": "^0.2.15"
+  }
+}

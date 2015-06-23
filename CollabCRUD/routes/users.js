@@ -1,4 +1,5 @@
 var User = require("../models/user");
+var Project = require("../models/project");
 var express = require("express");
 var router = express.Router();
 
@@ -52,8 +53,21 @@ router.route("/users/:username").get(function(req, res) {
             err.error = true;
             return res.send(err);
         }
+        user = user.toObject();
 
-        res.json(user);
+        Project.find({
+            "_id": {
+                $in: user.projects
+            }
+        }).lean().exec(function(err, projects) {
+            if (err) {
+                err.error = true;
+                return res.send(err);
+            }
+
+            user.projects = projects;
+            res.json(user);
+        });
     });
 }).post(function(req, res) {
     User.findOne({
@@ -73,9 +87,7 @@ router.route("/users/:username").get(function(req, res) {
                 return res.send(err);
             }
 
-            res.json({
-                message: "User updated!"
-            });
+            res.json(user);
         });
     });
 }).delete(function(req, res) {

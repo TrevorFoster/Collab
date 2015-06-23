@@ -1,0 +1,21 @@
+<div style="padding:15px">
+    <md-whiteframe layout-fill class="md-whiteframe-z1" style="background-color:white" layout="column">
+        <div layout="row" layout-align="space-around center">
+            <div layout="column">
+                <md-input-container>
+                    <label>Project Name</label>
+                    <input ng-model="project.name" ng-change="saveProject(project)" style="font-size:3em;margin:0px;">
+                </md-input-container>
+
+                <!-- <h2 style="font-size:3em;margin:0px">{{project.name}}</h2> -->
+                <span><strong>Author: </strong><a style="margin:0px;display:inline" ng-click="viewAuthor()">{{project.author}}</a></span>
+            </div>
+        </div>
+        <div layout="row" layout-align="space-around center">
+            <md-input-container style="width: 60%">
+                <label>Project Description</label>
+                <textarea ng-model="project.description" ng-change="saveProject(project)" style="font-size:1.1em" columns="2"></textarea>
+            </md-input-container>
+        </div>
+    </md-whiteframe>
+</div>

@@ -1,6 +1,4 @@
-var app = angular.module("LoginControllers", ["ui.router", "ngMaterial", "apiRef"]);
-
-app.controller("LoginCtrl", ["$scope", "$http", "$state", "$mdDialog", "User", function($scope, $http, $state, $mdDialog, User) {
+angular.module("CollabApp").controller("LoginCtrl", ["$scope", "$http", "$state", "$mdDialog", "User", function($scope, $http, $state, $mdDialog, User) {
     $scope.valid = true;
 
     $scope.verifyCred = function(username) {
@@ -17,7 +15,7 @@ app.controller("LoginCtrl", ["$scope", "$http", "$state", "$mdDialog", "User", f
                 $scope.valid = false;
                 return;
             }
-            localStorage.setItem("username", user.username);
+            sessionStorage.setItem("username", user.username);
             $state.go("dashboard.myprofile");
         });
     }
@@ -39,7 +37,7 @@ app.controller("LoginCtrl", ["$scope", "$http", "$state", "$mdDialog", "User", f
                     }).success(function(user) {
                         if (user.error) return;
                         $mdDialog.hide();
-                        localStorage.setItem("username", user.username);
+                        sessionStorage.setItem("username", user.username);
                         $state.go("dashboard.myprofile");
                     });
                 }

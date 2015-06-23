@@ -14,6 +14,7 @@ table.profile-stats {
 a.project-list-title {
     outline: none;
     width: 0;
+    font-size: 2em;
 }
 
 a.project-list-title:link {
@@ -31,4 +32,8 @@ a.project-list-title:hover {
 
 a.project-list-title:active {
     text-decoration: underline;
+}
+
+md-whiteframe {
+    background-color: white;
 }

@@ -36,12 +36,14 @@
                     <h3 layout layout-align="center">Projects</h3>
                 </md-toolbar>
                 <md-whiteframe layout-padding layout-fill class="md-whiteframe-z1" layout="column">
-                    <md-card ng-repeat="project in profileProjects | orderBy: '-reputation'" style="width:100%" layout="row">
+                    <md-card ng-repeat="project in profile.projects | orderBy: '-reputation'" layout="row">
                         <project-vote layout layout-align="center"></project-vote>
                         <md-card-content layout="column">
+                            <span>
                             <a class="project-list-title" ng-click="viewProject(project)">
-                                <h2 style="margin-bottom:0px;">{{project.name}}</h2>
+                                <b>{{project.name}}</b>
                             </a>
+                            </span>
                             <p class="md-secondary" style="font-size:1.05em">{{project.description}}</p>
                         </md-card-content>
                     </md-card>

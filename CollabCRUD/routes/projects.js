@@ -1,26 +1,52 @@
 var Project = require("../models/project");
+var User = require("../models/user");
 var express = require("express");
 var router = express.Router();
 
-router.route('/projects').post(function(req, res) {
+router.route("/projects/create/:username").post(function(req, res) {
     var project = new Project(req.body);
+    project.author = req.params.username;
+    project.created = Date.now();
 
-    project.save(function(err) {
+    project.save(function(err, project) {
         if (err) {
+            console.log("SHIT");
             return res.send(err);
         }
 
-        res.json(project);
-    });
-}).get(function(req, res) {
-    Project.find(function(err, projects) {
-        if (err) {
-            return res.send(err);
-        }
+        User.findOne({
+            username: req.params.username
+        }, function(err, user) {
+            if (err) {
+                err.error = true;
+                return res.send(err);
+            }
 
-        res.json(projects);
+            user.projects.push(project._id);
+            user.save(function(err) {
+                if (err) {
+                    console.log("SHIT");
+                    return res.send(err);
+                }
+            });
+
+            res.json(project.toObject());
+        });
     });
 });
+
+router.route("/projects").get(function(req, res) {
+    Project.find({}, function(err, projects) {
+        if (err) {
+            err.error = true;
+            return res.send(err);
+        }
+
+        res.json({
+            list: projects
+        });
+    });
+})
 
 router.route("/projects/:id").get(function(req, res) {
     Project.findOne({
@@ -51,9 +77,7 @@ router.route("/projects/:id").get(function(req, res) {
                 return res.send(err);
             }
 
-            res.json({
-                message: 'Proj updated!'
-            });
+            res.json(project);
         });
     });
 }).delete(function(req, res) {
@@ -72,7 +96,7 @@ router.route("/projects/:id").get(function(req, res) {
             }
 
             res.json({
-                message: 'Successfully deleted'
+                message: "Successfully deleted"
             });
         });
     }

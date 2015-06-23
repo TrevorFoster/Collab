@@ -1,0 +1,26 @@
+<md-whiteframe class="md-whiteframe-z1" layout="row" layout-padding layout-margin layout-align="space-between">
+    <div flex>
+        <md-whiteframe layout-fill class="md-whiteframe-z1 white" layout="column">
+            <md-card ng-repeat="project in user.projects | orderBy: '-reputation'" layout="row">
+                <project-vote layout layout-align="center"></project-vote>
+                <md-card-content layout="column">
+                    <span>
+                        <a class="project-list-title" ng-click="editProject(project)">
+                            <b>{{project.name}}</b>
+                        </a>
+                    </span>
+                    <p class="md-secondary" style="font-size:1.05em">{{project.description}}</p>
+                </md-card-content>
+            </md-card>
+        </md-whiteframe>
+    </div>
+    <div flex>
+        <md-whiteframe layout-fill class="md-whiteframe-z1 white" layout="column">
+            <div layout="row" layout-align="center">
+                <md-button class="md-raised md-primary" ng-click="newProject()">
+                    New Project
+                </md-button>
+            </div>
+        </md-whiteframe>
+    </div>
+</md-whiteframe>

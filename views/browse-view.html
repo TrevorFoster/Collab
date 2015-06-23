@@ -1,9 +1,19 @@
-<div layout="row">
-	<h1>Top Rated</h1>
+<div layout-padding layout="row">
+    <md-whiteframe layout-fill layout-padding class="md-whiteframe-z1">
+        <h1 layout layout-align="center">{{filter.name}}</h1>
 
-	<div layout="column">
-		<div ng-repeat="project in projects | orderBy: '-rating'">
-			<div>
-		</div>
-	</div>
+        <div layout="column">
+            <md-card ng-repeat="project in projectList | orderBy: 'filter.prop'" layout="row">
+                <project-vote layout layout-align="center"></project-vote>
+                <md-card-content layout="column">
+                    <span>
+                            <a class="project-list-title" ng-click="viewProject(project)">
+                                <b>{{project.name}}</b>
+                            </a>
+                            </span>
+                    <p class="md-secondary" style="font-size:1.05em">{{project.description}}</p>
+                </md-card-content>
+            </md-card>
+        </div>
+    </md-whiteframe>
 </div>

@@ -1,61 +1,61 @@
-<div style="padding:15px;">
-    <md-whiteframe layout-margin layout-padding layout-fill layout="column" class="md-whiteframe-z1" style="background-color:white">
-        <div layout="row" layout-margin layout-align="space-around start">
-            <div layout="row">
-                <img ng-src="http://lorempixel.com/50/50/people?0" style="border-radius:50%;width:100px;height:100px" />
-                <div layout="column" style="padding-left:5px">
-                    <h2 style="font-size:24px">
+<md-whiteframe layout-padding layout-margin layout="column" class="md-whiteframe-z1 white">
+    <div layout="row" layout-margin layout-align="space-around start">
+        <div layout="row">
+            <img ng-src="http://lorempixel.com/50/50/people?0" style="border-radius:50%;width:100px;height:100px" />
+            <div layout="column" style="padding-left:5px">
+                <h2 style="font-size:24px">
                     {{user.username}}<br>
                     <div style="font-size:18px;font-weight:normal" class="md-secondary">{{user.name}}</div>
                 </h2>
-                </div>
             </div>
-            <table class="profile-stats">
-                <tr>
-                    <td>
-                        <h2 style="text-decoration:underline;">{{user.projects.length}}</h2></td>
-                    <td>
-                        <h2 style="text-decoration:underline;">{{user.suggestions.length}}</h2></td>
-                    <td>
-                        <h2 style="text-decoration:underline;">{{user.reputation}}</h2></td>
-                </tr>
-                <tr>
-                    <td>
-                        <h4>{{user.projects.length == 1 ? "Project" : "Projects"}}</h4></td>
-                    <td>
-                        <h4>{{user.suggestions.length == 1 ? "Suggestion" : "Suggestions"}}</h4></td>
-                    <td>
-                        <h4>Reputation</h4></td>
-                </tr>
-            </table>
         </div>
-        <md-divider layout-align="start"></md-divider>
-        <div layout="row" layout-padding layout-align="space-between start">
-            <div flex layout-padding layout-margin>
-                <md-toolbar class="md-primary md-hue-2">
-                    <h3 layout layout-align="center">Projects</h3>
-                </md-toolbar>
-                <md-whiteframe layout-padding layout-fill class="md-whiteframe-z1" layout="column">
-                    <md-card ng-repeat="project in projects | orderBy: '-reputation'" style="width:100%" layout="row">
-                        <project-vote layout layout-align="center"></project-vote>
-                        <md-card-content layout="column">
+        <table class="profile-stats">
+            <tr>
+                <td>
+                    <h2 style="text-decoration:underline;">{{user.projects.length}}</h2></td>
+                <td>
+                    <h2 style="text-decoration:underline;">{{user.suggestions.length}}</h2></td>
+                <td>
+                    <h2 style="text-decoration:underline;">{{user.reputation}}</h2></td>
+            </tr>
+            <tr>
+                <td>
+                    <h4>{{user.projects.length == 1 ? "Project" : "Projects"}}</h4></td>
+                <td>
+                    <h4>{{user.suggestions.length == 1 ? "Suggestion" : "Suggestions"}}</h4></td>
+                <td>
+                    <h4>Reputation</h4></td>
+            </tr>
+        </table>
+    </div>
+    <md-divider layout-align="start"></md-divider>
+    <div layout="row" layout-padding layout-align="space-between start">
+        <div flex layout-padding layout-margin>
+            <md-toolbar class="md-primary md-hue-2">
+                <h3 layout layout-align="center">Projects</h3>
+            </md-toolbar>
+            <md-whiteframe layout-padding layout-fill class="md-whiteframe-z1" layout="column">
+                <md-card ng-repeat="project in user.projects | orderBy: '-reputation'" layout="row">
+                    <project-vote layout layout-align="center"></project-vote>
+                    <md-card-content layout="column">
+                        <span>
                             <a class="project-list-title" ng-click="viewProject(project)">
-                                <h2 style="margin-bottom:0px;">{{project.name}}</h2>
+                                <b>{{project.name}}</b>
                             </a>
-                            <p class="md-secondary" style="font-size:1.05em">{{project.description}}</p>
-                        </md-card-content>
-                    </md-card>
-                </md-whiteframe>
-            </div>
-            <div flex layout-padding layout-margin>
-                <md-toolbar class="md-primary md-hue-2">
-                    <h3 layout layout-align="center">Your Suggestions</h3>
-                </md-toolbar>
-                <md-whiteframe layout-padding layout-fill class="md-whiteframe-z1" layout="column">
-                    <md-content>
-                    </md-content>
-                </md-whiteframe>
-            </div>
+                            </span>
+                        <p class="md-secondary" style="font-size:1.05em">{{project.description}}</p>
+                    </md-card-content>
+                </md-card>
+            </md-whiteframe>
         </div>
-    </md-whiteframe>
-</div>
+        <div flex layout-padding layout-margin>
+            <md-toolbar class="md-primary md-hue-2">
+                <h3 layout layout-align="center">Your Suggestions</h3>
+            </md-toolbar>
+            <md-whiteframe layout-padding layout-fill class="md-whiteframe-z1" layout="column">
+                <md-content>
+                </md-content>
+            </md-whiteframe>
+        </div>
+    </div>
+</md-whiteframe>
