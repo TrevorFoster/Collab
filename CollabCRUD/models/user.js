@@ -5,7 +5,10 @@ var userSchema = new Schema({
     name: String,
     username: String,
     projects: [String],
-    reputation: Number,
+    reputation: {
+        type: Number,
+        default: 0
+    },
     suggestions: [String]
 });
 

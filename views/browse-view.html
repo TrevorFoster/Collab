@@ -1,9 +1,8 @@
 <div layout-padding layout="row">
     <md-whiteframe layout-fill layout-padding class="md-whiteframe-z1">
         <h1 layout layout-align="center">{{filter.name}}</h1>
-
         <div layout="column">
-            <md-card ng-repeat="project in projectList | orderBy: 'filter.prop'" layout="row">
+            <md-card ng-repeat="project in projectList | orderBy: filter.prop" layout="row">
                 <project-vote layout layout-align="center"></project-vote>
                 <md-card-content layout="column">
                     <span>

@@ -10,7 +10,6 @@ router.route("/projects/create/:username").post(function(req, res) {
 
     project.save(function(err, project) {
         if (err) {
-            console.log("SHIT");
             return res.send(err);
         }
 
@@ -25,7 +24,6 @@ router.route("/projects/create/:username").post(function(req, res) {
             user.projects.push(project._id);
             user.save(function(err) {
                 if (err) {
-                    console.log("SHIT");
                     return res.send(err);
                 }
             });
